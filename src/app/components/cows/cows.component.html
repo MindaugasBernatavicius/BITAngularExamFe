@@ -1,0 +1,89 @@
+<table *ngIf="cows.length > 0; else noCowsWarning" class="table">
+  <thead>
+    <tr>
+      <th (click)="sortBy('id')">
+        ID
+        <i
+          class="fa fa-{{
+            sortField === 'id'
+              ? direction === 'up'
+                ? 'chevron-up'
+                : 'chevron-down'
+              : 'sort'
+          }}"
+        ></i>
+      </th>
+      <th (click)="sortBy('name')">
+        Name
+        <i
+          class="fa fa-{{
+            sortField === 'name'
+              ? direction === 'up'
+                ? 'chevron-up'
+                : 'chevron-down'
+              : 'sort'
+          }}"
+        ></i>
+      </th>
+      <th (click)="sortBy('weight')">
+        Weight
+        <i
+          class="fa fa-{{
+            sortField === 'weight'
+              ? direction === 'up'
+                ? 'chevron-up'
+                : 'chevron-down'
+              : 'sort'
+          }}"
+        ></i>
+      </th>
+      <th (click)="sortBy('total_milk')">
+        Total Milk
+        <i
+          class="fa fa-{{
+            sortField === 'total_milk'
+              ? direction === 'up'
+                ? 'chevron-up'
+                : 'chevron-down'
+              : 'sort'
+          }}"
+        ></i>
+      </th>
+      <th (click)="sortBy('last_milking_time')">
+        Last Milking Time
+        <i
+          class="fa fa-{{
+            sortField === 'last_milking_time'
+              ? direction === 'up'
+                ? 'chevron-up'
+                : 'chevron-down'
+              : 'sort'
+          }}"
+        ></i>
+      </th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cow of cows">
+      <td>{{ cow.id }}</td>
+      <td>{{ cow.name }}</td>
+      <td>{{ cow.weight }} <input [(ngModel)]="cowsUpdateInfoStructure" /></td>
+      <td>{{ cow.total_milk }} <input /></td>
+      <td>
+        {{ cow.last_milking_time | date }}
+        <input />
+      </td>
+      <td>
+        <button (click)="onDelete(cow.id)" class="btn btn-danger">
+          Delete
+        </button>
+        &nbsp;
+        <button (click)="onUpdate(cow)" class="btn btn-warning">Update</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<ng-template #noCowsWarning>
+  <p class="alert alert-warning">No data!</p>
+</ng-template>
