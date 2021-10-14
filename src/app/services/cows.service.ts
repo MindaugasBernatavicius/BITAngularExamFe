@@ -12,10 +12,18 @@ export class CowsService {
   constructor(private http: HttpClient) { }
 
   getCows(): Observable<Cow[]> {
-    return this.http.get<Cow[]>(this.url + '/cows')
+    return this.http.get<Cow[]>(this.url + '/cows');
   }
 
   deleteCow(id: number): Observable<any> {
-    return this.http.delete<any>(this.url + '/cows' + '/' + id)
+    return this.http.delete<any>(this.url + '/cows' + '/' + id);
+  }
+
+  updateCow(cow: Cow): Observable<any> {
+    return this.http.put<any>(this.url + '/cows' + '/' + cow.id, cow);
+  }
+
+  createCow(cow: Cow): Observable<any> {
+    return this.http.post<any>(this.url + '/cows', cow);
   }
 }

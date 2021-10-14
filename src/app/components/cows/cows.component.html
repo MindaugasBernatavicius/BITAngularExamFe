@@ -68,11 +68,26 @@
     <tr *ngFor="let cow of cows">
       <td>{{ cow.id }}</td>
       <td>{{ cow.name }}</td>
-      <td>{{ cow.weight }} <input [(ngModel)]="cowsUpdateInfoStructure" /></td>
-      <td>{{ cow.total_milk }} <input /></td>
       <td>
-        {{ cow.last_milking_time | date }}
-        <input />
+        <p>{{ cow.weight }}</p>
+        <input #newWeight [(ngModel)]="cowsUpdateMap.get(cow.id).newWeight" />
+      </td>
+      <td>
+        <p>{{ cow.total_milk }}</p>
+        <input
+          #todaysMilkCount
+          [(ngModel)]="cowsUpdateMap.get(cow.id).todaysMilkCount"
+        />
+      </td>
+      <td>
+        <p class="date_input">{{ cow.last_milking_time | date }}</p>
+        <input
+          #newMilkingDate
+          class="date_input"
+          [ngModel]="cowsUpdateMap.get(cow.id).newMilkingDate"
+          (ngModelChange)="cowsUpdateMap.get(cow.id).newMilkingDate = $event"
+          pattern="\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)"
+        />
       </td>
       <td>
         <button (click)="onDelete(cow.id)" class="btn btn-danger">
@@ -80,6 +95,33 @@
         </button>
         &nbsp;
         <button (click)="onUpdate(cow)" class="btn btn-warning">Update</button>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <input [(ngModel)]="newCow.name" />
+      </td>
+      <td>
+        <p></p>
+        <input [(ngModel)]="newCow.weight" />
+      </td>
+      <td>
+        <p></p>
+        <input [(ngModel)]="newCow.total_milk" />
+      </td>
+      <td>
+        <p class="date_input"></p>
+        <input
+          class="date_input"
+          [ngModel]="
+            newCow.last_milking_time | date: 'yyyy-MM-ddTHH:mm:ss.SSS' + 'Z'
+          "
+          (ngModelChange)="newCow.last_milking_time = $event"
+        />
+      </td>
+      <td>
+        <button (click)="onCreate()" class="btn btn-light">Create</button>
       </td>
     </tr>
   </tbody>
